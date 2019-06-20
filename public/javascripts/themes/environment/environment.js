@@ -268,3 +268,4 @@ function formatQuarter(date){
     
     return "Quarter "+ q + ' ' + year;
 }
+
