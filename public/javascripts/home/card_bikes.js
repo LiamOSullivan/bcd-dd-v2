@@ -13,14 +13,14 @@ let indicatorUpSymbol = "▲",
   indicatorDownSymbol = "▼";
 
 const fetchBikesData = function() {
-  d3.json('/api/dublinbikes/stations/snapshot') //get latest snapshot of all stations
+  d3.json('/api/dublinbikes/stations/all/snapshot') //get latest snapshot of all stations
     .then((data) => {
-      console.log("Fetched Dublin Bikes card data ");
+      //console.log("Fetched Dublin Bikes card data ");
       processBikes(data);
       clearInterval(bikesTimer);
     })
     .catch(function(err) {
-      console.error("Error fetching Dublin Bikes card data: " + JSON.stringify(err));
+      //console.error("Error fetching Dublin Bikes card data: " + JSON.stringify(err));
       initialiseBikesDisplay();
       // restart the timer
       clearInterval(bikesTimer);

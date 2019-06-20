@@ -1,5 +1,4 @@
 const moment = require('moment');
-// const fetch = require("node-fetch");
 
 const getDublinBikesData_derilinx = async url => {
   const fetch = require("node-fetch");
@@ -116,11 +115,15 @@ exports.getAllStationsDataToday = async (req, res) => {
 Fetch yesterday's bikes data at hourly intervals (called from app at 1.30 am every day)
 ********/
 exports.getAllStationsDataYesterdayHourly = async (req, res) => {
-  let h = 0;
+  let hStart = 3,
+    hEnd = 26; //hours to gather data for- no. of hours past start of day
   let responses = [];
-  for (let h = 4; h <= 23; h += 1) {
+  let summary = [];
+  let hourlyValues = [];
+  let totalBikesDay = 0; //the total bikes avaiilable taken as the # available before opening hour
+  for (let h = hStart; h <= hEnd; h += 1) {
     let startQuery = moment.utc().subtract(1, 'days').startOf('day').add(h, 'h').format('YYYYMMDDHHmm');
-    let endQuery = moment.utc().subtract(1, 'days').startOf('day').add(h, 'h').add(6, 'm').format('YYYYMMDDHHmm');
+    let endQuery = moment.utc().subtract(1, 'days').startOf('day').add(h, 'h').add(2, 'm').format('YYYYMMDDHHmm');
     // console.log("\nStart Query: " + startQuery + "\nEnd Query: " + endQuery);
     const url = "https://dublinbikes.staging.derilinx.com/api/v1/resources/historical/?" +
       "dfrom=" +
@@ -130,17 +133,54 @@ exports.getAllStationsDataYesterdayHourly = async (req, res) => {
     // console.log("URL - - " + url + "\n")
     try {
       const response = await getDublinBikesData_derilinx(url);
+
       // console.log("\n\nResponse hour  " + h + "\n" + JSON.stringify(response) + "\n");
-      responses.push(response);
+      // responses.push(response);
+      let availableBikesSum = 0,
+        availableStandsSum = 0,
+        bikesInMotionSum = 0; //sum of values at a particluar hour
+
+      // console.log("\n\n\n bikes total: " + totalBikes + "\n\n\n");
+      response.forEach(r => {
+        availableBikesSum += r.historic[0].available_bikes;
+        availableStandsSum += r.historic[0].available_bike_stands;
+      });
+      if (h == hStart) {
+        totalBikesDay = availableBikesSum;
+      }
+      const date = new Date(response[0].historic[0].time);
+      const ampm = date.getHours() >= 12 ? 'PM' : 'AM';
+      const hour12 = (date.getHours() % 12) == 0 ? '12' : date.getHours() % 12;
+      let label = hour12 + " " + ampm;
+      hourlyValues.push({
+        "key": "available_bikes",
+        "date": date,
+        "value": availableBikesSum,
+        "label": label
+      });
+      hourlyValues.push({
+        "key": "total_available_bikes",
+        "date": date,
+        "value": totalBikesDay,
+        "label": label
+      });
+      hourlyValues.push({
+        "key": "bikes_in_motion",
+        "date": date,
+        "value": totalBikesDay - availableBikesSum,
+        "label": label
+      });
     } catch (e) {
       console.error("Error in getAllStationsDataYesterdayHourly" + e);
     }
 
   }
+
+  // console.log("Summary hourly " + JSON.stringify(hourlyValues));
   // console.log("\n\nresponses arr \t" + responses.length);
-  if (responses.length == 20) {
-    res.send(responses);
+  if (hourlyValues.length >= 1) {
+    res.send(hourlyValues);
   } else {
-    res.send("error");
+    res.send("Error fetching data");
   }
 };
