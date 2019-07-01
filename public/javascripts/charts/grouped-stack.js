@@ -178,7 +178,7 @@ class GroupStackBar {
             pHeader
                 .append("span")
                 .attr("class","bcd-text-slice")
-                .text("Portion");
+                .text("Portion33");
 
             // pHeader
             //     .append("span")

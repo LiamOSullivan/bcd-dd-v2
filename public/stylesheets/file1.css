@@ -1,0 +1,47 @@
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  
+  form {
+    position: absolute;
+    left: 200px;
+    top: 10px;
+  }
+
+  label {
+    display: block;
+  }
+  
+  .xAxis .domain {
+    display: none;
+  }
+
+.toolTip {
+   position: absolute;
+  text-align: left;
+  width: 375px;
+  height: 200px;
+  padding: 8px;
+  margin-top: -20px;
+  font: 10px sans-serif;
+  background: #FFF;
+  pointer-events: none;
+
+}
+
+.square-set,
+.square {
+  border-radius: 15px;
+}
+.square-set {
+  background: #FFF;
+}
+.square {
+  position: static;
+  background: #FFF;
+  height: 70px;
+  line-height: 40px;
+  text-align: center;
+  width: 90px;
+}
+
