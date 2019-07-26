@@ -18,20 +18,19 @@ article.article
       p Source: 
         a(href="http://www.dublinbikes.ie/" target="_blank") Dublin Bikes Website 
           img(src='../images/external-link.svg' height='11px' width='11px')
-      p Just Eat dublinbikes is a self-service bike rental system open to 
+      div.info-text
+        p Just Eat dublinbikes is a self-service bike rental system open to 
         |everyone from 14 years of age. 
         |It enables you to travel through the 
         |city centre, commute between home and work and get out and about 
         |to enjoy Dublin city at your leisure. Visit the 
         |Dublin Bikes website for more information.
-      p The chart shows the general trend of bikes availability for the past day, week and month- 
+        p The chart shows the general trend of bikes availability for the past day, week and month- 
         |click on a button to move between views.
 
-      div#bikes-info-text
-        p In the past day, the maximum number of bikes in use at any given time was <b id='bikes-in-use-count'></b> at <b id='max-bikes-use-time'></b>, meaning there were then still <b id='bikes-available'></b> bikes available.
-        
-        //- bike stations around 
-        //-   |the city with <b id='stands-count'></b> stands.
+        div#bikes-info-text.kpi-text
+          p In the past day, the maximum number of bikes in use at any given time was <b id='bikes-in-use-count'></b> at <b id='max-bikes-use-time'></b>, meaning there were then still <b id='bikes-available'></b> bikes available.
+  
         //- //- p See also: 
           li <a href="../queries"> Getting Around</a> for <b>all</b> transport & travel on one map
 
@@ -42,55 +41,7 @@ article.article
         <button id="dublinbikes_month" type="button" class="btn btn-bcd btn-sm">Month</button>
         //- <button id="dublinbikes_year" type="button" class="btn btn-bcd btn-sm">Year</button>
       div#chart-dublinbikes.chart-holder
-      //- .row.wrapper
-      //-   .col-lg-4
-      //-     h3 Dublin Bus <img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>
-      //-     p Source: 
-      //-       a(href="https://data.smartdublin.ie/dataset/real-time-passenger-information-rtpi-for-dublin-bus-bus-eireann-luas-and-irish-rail" target="_blank") Dublin Bus API 
-      //-         img(src='../images/external-link.svg' height='11px' width='11px')
-      //-     p Dublin Bus is the biggest public transport provider in the Greater Dublin Area, 
-      //-       |operating over <b>136 routes</b>. 
-      //-       |Normal services run from 5.00am until midnight. 
-      //-       |The Nitelink service operates from midnight until 4.00am on Friday and Saturday nights. 
-      //-       |For detailed information on services see <a href="www.dublinbus.ie"> Dublin Bus</a>
-      //- 
-      //-     p See also: 
-      //-       li <a href="../queries"> Getting Around</a>
-      //- 
-      //-     div#chart-transport-bus-select
-      //-   .col-lg-8
-      //-     div.ml-5.pt-2
-      //-       //<button type="button" class="btn btn-dark employment-btn parking_multi" value="dublinBikes">Car Parks</button>
-      //-       //<button type="button" class="btn btn-dark employment-btn parking_street" value="dublinBuses">Buses</button>
-      //-       //<button type="button" class="btn btn-dark employment-btn travel_times" value="dublinLuas">Travel Times</button>
-      //-       //<button type="button" class="btn btn-dark employment-btn private_travel_all" value="all" >All</button>
-      //-     div#chart-transport-bus
-
-      //- .row.wrapper
-      //-   .col-lg-4
-      //-     h3 Luas <img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>
-      //-     p Source: 
-      //-       a(href="https://data.smartdublin.ie/dataset/real-time-passenger-information-rtpi-for-dublin-bus-bus-eireann-luas-and-irish-rail" target="_blank") Luas 
-      //-         img(src='../images/external-link.svg' height='11px' width='11px')
-      //-     p Luas is Dublin's Light Rail Transit System, operated by Transdev Ireland. 
-      //-       |<a href="http://www.tii.ie/" target="_blank"> Transport Infrastructure Ireland (TII)</a> 
-      //-       |is the state body responsible for Luas.
-      //-     p There are two Luas tram lines, the Red Line and the Green Line. 
-      //-       |The Red Line is 20kms in length and has 32 Stops;  
-      //-       |it runs from Tallaght to The Point and from Saggart to Connolly.
-      //-       |The Green Line is 24.5km in length and has 35 Stops; 
-      //-       |it runs from Brides Glen to Broombridge.
-      //- 
-      //-     p See also: 
-      //-       li <a href="../queries"> Getting Around</a>
-      //-     div#chart-transport-luas-select
-      //-   .col-lg-8
-      //-     div.ml-5.pt-2
-      //-       //<button type="button" class="btn btn-dark employment-btn parking_multi" value="dublinBikes">Bikes</button>
-      //-       //<button type="button" class="btn btn-dark employment-btn parking_street" value="dublinBuses">Onstreet Parking</button>
-      //-       //<button type="button" class="btn btn-dark employment-btn travel_times" value="dublinLuas">Luas</button>
-      //-       //<button type="button" class="btn btn-dark employment-btn private_travel_all" value="all" >All</button>
-      //-     div#chart-transport-luas
+      
 
   .row.wrapper
     .col-lg-4

@@ -258,6 +258,25 @@ a:hover {
   padding: 1rem;
 }
 
+
+.info-text {
+  height: 233px;
+
+}
+.kpi-text{
+  display: flex;
+  height: 166px;
+  border: 2px solid #8080802e;
+  padding: 1rem;
+  border-radius: 12px;
+
+}
+
+.kpi-text p {
+  margin: 0;
+
+}
+
 /* //specific adjustments for page anchors */
 /*TODO: wrap all these sections anchors in a class*/
 #HPM06{
