@@ -11,36 +11,37 @@ header.header
         |<a href="../queries"> Getting Around</a> query.
 
 
-article.article
-  div#dublin-bikes.row.wrapper
+  #dublin-bikes.row
     .col-lg-4
-      h3 Dublin Bikes <img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>
-      p Source: 
-        a(href="http://www.dublinbikes.ie/" target="_blank") Dublin Bikes Website 
-          img(src='../images/external-link.svg' height='11px' width='11px')
-      div.info-text
+      .themes-text-title
+        h3 Dublin Bikes <img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>
+        p Source: 
+          a(href="http://www.dublinbikes.ie/" target="_blank") Dublin Bikes Website 
+            img(src='../images/external-link.svg' height='11px' width='11px')
+      .themes-text-info
         p Just Eat dublinbikes is a self-service bike rental system open to 
-        |everyone from 14 years of age. 
-        |It enables you to travel through the 
-        |city centre, commute between home and work and get out and about 
-        |to enjoy Dublin city at your leisure. Visit the 
-        |Dublin Bikes website for more information.
+          |everyone from 14 years of age. 
+          |It enables you to travel through the 
+          |city centre, commute between home and work and get out and about 
+          |to enjoy Dublin city at your leisure. Visit the 
+          |Dublin Bikes website for more information.
         p The chart shows the general trend of bikes availability for the past day, week and month- 
-        |click on a button to move between views.
+          |click on a button to move between views.
 
-        div#bikes-info-text.kpi-text
-          p In the past day, the maximum number of bikes in use at any given time was <b id='bikes-in-use-count'></b> at <b id='max-bikes-use-time'></b>, meaning there were then still <b id='bikes-available'></b> bikes available.
+      #bikes-info-text.themes-text-data
+        p In the past day, the maximum number of bikes in use at any given time was 
+          |<b id='bikes-in-use-count'></b> at <b id='max-bikes-use-time'></b>, meaning there were then still <b id='bikes-available'></b> bikes available.
   
         //- //- p See also: 
           li <a href="../queries"> Getting Around</a> for <b>all</b> transport & travel on one map
 
-    .col-lg-8
-      .div.pt-2.ml-4
+    .col-lg-8.themes-chart
+      .themes-chart-buttons
         <button id="dublinbikes_day" type="button" class="btn btn-bcd btn-sm active">Day</button>
         <button id="dublinbikes_week" type="button" class="btn btn-bcd btn-sm">Week</button>
         <button id="dublinbikes_month" type="button" class="btn btn-bcd btn-sm">Month</button>
         //- <button id="dublinbikes_year" type="button" class="btn btn-bcd btn-sm">Year</button>
-      div#chart-dublinbikes.chart-holder
+      #chart-dublinbikes.themes-chart-holder
       
 
   .row.wrapper

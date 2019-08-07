@@ -231,17 +231,7 @@ a:hover {
   height: 16px;
 }
 
-.chart-holder{
-  margin-right: -1rem;
-  border-radius: .325rem;
-}
 
-.chart-holder-border{
-  border: 1px solid #8080802e;
-  border-radius: 12px;
-  box-shadow: 0 0 16px #ccc;
-  padding: 1rem;
-}
 
 .map-holder{
   height: 400px;
@@ -258,12 +248,36 @@ a:hover {
   padding: 1rem;
 }
 
+.themes-component{
+  display: flex;
+  flex-wrap: wrap;
+  margin:  0 0 1rem 0;
+  padding: 0;
+  /* height: 500px; */
+  /* width: auto; */
+}
 
-.info-text {
-  height: 233px;
+.themes-text {
+  height: 400px;
+  margin: 0;
+  padding: 0;
 
 }
-.kpi-text{
+
+.themes-text-title {
+  height: 100px;
+  margin: 0;
+  padding: 0;
+
+}
+
+.themes-text-info {
+  height: 234px;
+  padding:0;
+  margin:0;
+
+}
+.themes-text-data{
   display: flex;
   height: 166px;
   border: 2px solid #8080802e;
@@ -272,10 +286,36 @@ a:hover {
 
 }
 
-.kpi-text p {
+.data-text p {
   margin: 0;
 
 }
+
+.themes-chart{
+  height: 400px;
+  margin: 0;
+  padding: 0;
+}
+
+.themes-chart-buttons{
+  height: 100px;
+  margin: 0;
+  padding: 0;
+}
+
+.themes-chart-holder{
+  margin-right: -1rem;
+  border-radius: .325rem;
+}
+
+.themes-chart-holder-border{
+  border: 1px solid #8080802e;
+  border-radius: 12px;
+  box-shadow: 0 0 16px #ccc;
+  padding: 1rem;
+}
+
+
 
 /* //specific adjustments for page anchors */
 /*TODO: wrap all these sections anchors in a class*/
