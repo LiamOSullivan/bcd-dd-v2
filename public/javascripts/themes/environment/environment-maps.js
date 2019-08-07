@@ -1,3 +1,4 @@
+
 let popupTime = d3.timeFormat("%a %B %d, %H:%M");
 
 
@@ -387,7 +388,7 @@ airMap.setView(new L.LatLng(dubLat, dubLng), zoom);
 airMap.addLayer(osmAir);
 let markerRefAir; //TODO: fix horrible hack!!!
 airMap.on('popupopen', function(e) {
-  markerRefAir = e.popup._source;
+markerRefAir = e.popup._source;
   //console.log("ref: "+JSON.stringify(e));
 });
 

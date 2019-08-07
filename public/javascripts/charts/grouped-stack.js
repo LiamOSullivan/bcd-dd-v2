@@ -1,11 +1,10 @@
 class GroupStackBar {
 
     constructor(obj){
-
         this.d = obj.d; // the data
         this.e = obj.e; // selector element
-        this.k = obj.k; // key 
-        
+        this.k = obj.k; // key
+
         this.ks = obj.ks;
         this.xV = obj.xV; // x value
         this.yV = obj.yV; // y value
@@ -14,8 +13,9 @@ class GroupStackBar {
         this.tX = obj.tX;
         this.tY = obj.tY;
         this.ySF = obj.ySF || "thousands"; // format for y axis
-         
+
         this.drawChart();
+        console.log(this.cS);
     }
 
     drawChart(){
@@ -29,7 +29,8 @@ class GroupStackBar {
         c.addAxis();
         c.drawGridLines();
         c.drawStack();
-        c.addLegend();         
+        c.addLegend();
+      //  console.log('here01dfg');
     }
 
     init(){
@@ -83,17 +84,17 @@ class GroupStackBar {
 
         // set colour function
        // c.colour = d3.scaleOrdinal(c.cScheme); The Original Script
-       c.colour = d3.scaleOrdinal().range(["#79B0F9  ", "#6794D3  ", "#5981B8  ", "#486895  ", "#375073  ", "#2A3D58  " ]);
+       c.colour = d3.scaleOrdinal().range(["#F70000", "#D49D2F", "#AF8126", "#906B1F", "#6C5018", "#453310" ]);
        c.colour2 = d3.scaleOrdinal().range(["#FEFFBE", "#FDFF98", "#FDFF77", "#FCFF46", "#FAFD24", "#FBFF07" ]);
-    
-       
+
+
 
         // // tick numbers
         // c.tickNumber = "undefined";
 
         // // tick formats
         // c.tickFormat = "undefined";
-        
+
         c.bisectDate = d3.bisector( (d) => { return d[c.xV]; } ).left;
 
         // c.yAxisCall = d3.axisLeft();
@@ -102,14 +103,16 @@ class GroupStackBar {
 
         c.drawTooltip();
 
- } 
+ }
 
-    addAxis(){       
+    addAxis(){
         let c = this,
             g = c.g,
             gLines,
             xLabel,
             yLabel;
+
+
 
             gLines = g.append("g")
                 .attr("class", "grid-lines");
@@ -117,7 +120,9 @@ class GroupStackBar {
             c.xAxis = g.append("g")
                 .attr("class", "x-axis")
                 .attr("transform", "translate(0," + c.h +")");
-            
+
+
+
             c.yAxis = g.append("g")
                 .attr("class", "y-axis");
 
@@ -147,7 +152,7 @@ class GroupStackBar {
             p,
             divHeaders,
             pHeader;
-        
+
             c.colour.domain(c.d.map(d => { return d[c.k]; }));
             keys = c.colour.domain();
 
@@ -208,9 +213,9 @@ class GroupStackBar {
                         .append("div")
                         .attr("id", "bcd-tt" + i);
 
-          
 
-                    
+
+
                 div.append("span").attr("class", "bcd-rect");
 
                 p = div.append("p").attr("class","bcd-text");
@@ -228,9 +233,9 @@ class GroupStackBar {
                         .append("div")
                         .attr("id", "bcd-tt" + i);
 
-          
 
-                    
+
+
                 div.append("span").attr("class", "bcd-rect");
 
                 p = div.append("p").attr("class","bcd-text");
@@ -247,7 +252,7 @@ class GroupStackBar {
 
         let lastDiv = c.newToolTip.append("div")
                     .attr("id", "bcd-tt-total"),
-            
+
             lastDot = lastDiv.append("span")
                     .attr("class", "bcd-rect"),
 
@@ -282,12 +287,12 @@ class GroupStackBar {
 
             c.colour2.domain(data.map(d => { return d.type; }));
             keys2 = c.colour2.domain();
-            
+
             groupData = d3.nest()
                 .key(d => { return d.date + d.region; })
                 .rollup((d, i) => {
                     const d2 = {
-                        date: d[0].date, 
+                        date: d[0].date,
                         region: d[0].region
                     };
                     d.forEach(d => {
@@ -320,24 +325,39 @@ class GroupStackBar {
         xt = c.getElement(".titleX").text(c.tX);
         yt = c.getElement(".titleY").text(c.tY);
 
+        //c.setScales("time");
+        // xt.setDomains();
+
+
         x0 = d3.scaleBand()
                 .range([0, c.w])
                 .padding(0.05),
 
+       //x0 = d3.scaleBand()
+      //.domain(d3.extent(c.d, function(d) { return d.date; }))
+      //.range([ 0, width ]);
+
+
         x1 = d3.scaleBand()
                 .padding(0.05),
+
+
+
 
         y = d3.scaleLinear()
                 .range([c.h, 0]);
 
+        // x0.domain(c.d.map(d => { return d.region; }));
+
         x0.domain(c.d.map(d => { return d.region; }));
+
 
         x1.domain(c.d.map(d => { return d.date; }))
             .rangeRound([0, x0.bandwidth()])
             .padding(0.2);
 
         y.domain([0, d3.max(
-            c.stackD, d => { return d3.max(d, d => { return d[1]; }); 
+            c.stackD, d => { return d3.max(d, d => { return d[1]; });
             })]).nice();
 
         xAxisCall.scale(x0);
@@ -352,7 +372,7 @@ class GroupStackBar {
     drawGridLines(){
         let c = this,
             gLines;
-            
+
         gLines = c.getElement(".grid-lines");
 
         gLines.selectAll("line")
@@ -392,71 +412,62 @@ class GroupStackBar {
                     .data(data)
                     .enter().append("g")
                     .attr("class", "series")
-                    .attr("fill", d =>  { return z(d.key); })         
+                    .attr("fill", d =>  { return z(d.key); })
                     .attr("width", x1.bandwidth())
                     .style("fill-opacity", 0.75)
-                    .on("click", (d, i) => { 
-                    console.log("series-rect click d", i, d); 
-                    });
+                    .on("click", (d, i) => {
+                    console.log("series-rect click d", i, d);
+                        });
 
-  
+
             c.series.selectAll("rect")
-                    .data(d => { 
-                        return d; 
+                    .data(d => {
+                        return d;
                     }).enter()
                     .append("rect")
-                        .attr("class", "series-rect")
-                        .attr("transform", d =>  { 
-                            return "translate(" + x0(d.data.region) + ",0)"; 
-                        })
-                        .attr("x", d =>  { 
+                    .attr("class", "series-rect")
+                    .attr("transform", d =>  {
+                     return "translate(" + x0(d.data.region) + ",0)";
+                     })
+                        .attr("x", d =>  {
                             return x1(d.data.date);
                         })
-                        .attr("y", d =>  { 
+                        .attr("y", d =>  {
                             return y(d[1]);
                         })
-                        .attr("height", d =>  { 
-                            return y(d[0]) - y(d[1]); 
+                        .attr("height", d =>  {
+                            return y(d[0]) - y(d[1]);
                         })
                         .attr("width", x1.bandwidth())
                         .style("fill-opacity", 0.75)
-                        .on("click", (d, i) => { 
-                            console.log("series-rect click d", i, d); 
+                        .on("click", (d, i) => {
+                            console.log("series-rect click d", i, d);
                         });
 
-                   /*    c.series.selectAll("rect")                   
+                   /*    c.series.selectAll("rect")
                         .filter(function(d, i) { return i == 0 })
                          .attr('fill', 'red')
                          .attr("width", x1.bandwidth())
                         .style("fill-opacity", 0.75)
-                        .on("click", (d, i) => { 
-                            console.log("series-rect click d", i, d); 
+                        .on("click", (d, i) => {
+                            console.log("series-rect click d", i, d);
                         });*/
 
 
-                       /* c.series.selectAll("rect")                   
+                       /* c.series.selectAll("rect")
                         .filter(function(d, i) { return i == 27 })
                          .attr('fill', 'green')
                          .attr("width", x1.bandwidth())
                         .style("fill-opacity", 0.75)
-                        .on("click", (d, i) => { 
-                            console.log("series-rect click d", i, d); 
+                        .on("click", (d, i) => {
+                            console.log("series-rect click d", i, d);
                         });*/
-
-
-                    
-
-
-                          
-
-                     
-
 
     }
 
 
 //var rects = d3.selectAll(c.series)
-                  
+
 
     addLegend(){
         let c = this,
@@ -466,16 +477,16 @@ class GroupStackBar {
 
         const legend = c.series.append("g")
             .attr("class", "legend")
-            .attr("transform", d =>  { 
-                const d1 = d[d.length - 1]; 
-                return "translate(" 
-                    + (x0(d1.data.region) 
-                    + x1(d1.data.date) 
-                    + x1.bandwidth()) 
-                    + "," 
-                    + ((y(d1[0]) 
-                    + y(d1[1])) / 2) 
-                    + ")"; 
+            .attr("transform", d =>  {
+                const d1 = d[d.length - 1];
+                return "translate("
+                    + (x0(d1.data.region)
+                    + x1(d1.data.date)
+                    + x1.bandwidth())
+                    + ","
+                    + ((y(d1[0])
+                    + y(d1[1])) / 2)
+                    + ")";
                 });
 
         legend.append("line")
@@ -490,8 +501,8 @@ class GroupStackBar {
             .attr("dy", "0.35em")
             .attr("fill", "#fff")
             .style("font", "10px sans-serif")
-            .text( d =>  { 
-                return d.key; 
+            .text( d =>  {
+                return d.key;
             })
             .call(textWrap, 100, 12);
     }
@@ -509,7 +520,7 @@ class GroupStackBar {
             dv.hV = 0;
 
             dv.series.selectAll("rect")
-            .on("mouseover", function(){ 
+            .on("mouseover", function(){
                 dv.newToolTip.style("visibility","visible");
             })
             .on("mouseout", function(){
@@ -518,9 +529,26 @@ class GroupStackBar {
             .on("mousemove", d => dv.mousemove(d));
     }
 
+
+setDomains() {
+    let c = this,
+      minValue;
+
+    // switch (d){
+    // }
+
+    // set domain range
+    c.x.domain(d3.extent(c.d[0].values, d => {
+      return (d[c.xV]);
+    }));
+}
+
+
+
+
     mousemove(d){
         let c = this,
-            x = c.x0(d.data.region) + c.x1(d.data.date), 
+            x = c.x0(d.data.region) + c.x1(d.data.date),
             y = 100,
             total = 0,
             tooltipX = c.getTooltipPosition(x),
@@ -543,7 +571,7 @@ class GroupStackBar {
 
             c.keys.forEach( (reg,idx) => {
                     // total += d.data[reg];// for the last text total;
-                console.log("total value is", total);
+                //console.log("total value is", total);
 
             let id = "#bcd-tt" + idx,
                 div = c.newToolTip.select(id),
@@ -557,9 +585,9 @@ class GroupStackBar {
                 rate = rV !== 0 ? perc(rV) : "N/A",
                 slice = perc(v/total),
                 indicator = rV > 0 ? " ▲" : rV < 0 ? " ▼" : "";
-                indicatorColour = c.arrowChange === true ? rV < 0 ?"#20c997" 
-                                                : rV > 0 ? "#da1e4d" : "#f8f8f8" 
-                                                : rV > 0 ? "#20c997" : rV < 0 ? "#da1e4d" 
+                indicatorColour = c.arrowChange === true ? rV < 0 ?"#20c997"
+                                                : rV > 0 ? "#da1e4d" : "#f8f8f8"
+                                                : rV > 0 ? "#20c997" : rV < 0 ? "#da1e4d"
                                                 : "#f8f8f8";
 
                 c.newToolTipTitle.text(c.ttTitle + " " + (d.data.date));
@@ -588,12 +616,12 @@ class GroupStackBar {
             // show right
             if ( mouseX < cW) {
                 ttX = mouseX + dv.m.l + dv.x1.bandwidth()*2;
-                console.log("tt pos", cW, ttX, mouseX);
+                //console.log("tt pos", cW, ttX, mouseX);
             }
             else{
                 ttX = (mouseX + dv.m.l + dv.x1.bandwidth()) - dv.ttWidth;
-                console.log("tt pos", mouseX);
-            } 
+                //console.log("tt pos", mouseX);
+            }
 
             return ttX;
     }
@@ -609,23 +637,28 @@ function formatValue(format){
         case "m":
             return d3.format(".2s");
             break;
-    
+
         case "euros":
             return "undefined";
             break;
-    
+
         case "thousands":
             return d3.format(",");
             break;
-    
+
         case "percentage":
             return d3.format(".2%");
             break;
-    
+
         default:
             return "undefined";
     }
 }
+
+
+
+
+
 
 function textWrap(text, width, xpos = 0, limit=3) {
     text.each(function() {

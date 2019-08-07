@@ -96,6 +96,8 @@ class StackBarChart extends Chart{
                 .style("stroke-width", "1");
     }
 
+
+
     // drawTooltip(){
     //     let c = this,
     //         keys,

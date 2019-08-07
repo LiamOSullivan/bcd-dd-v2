@@ -12,7 +12,7 @@ let bikesIcon = L.Icon.extend({
 //Add an id field to the markers to match with bike station id
 let customBikesStationMarker = L.Marker.extend({
   options: {
-    id: 0
+    id: 
   }
 });
 

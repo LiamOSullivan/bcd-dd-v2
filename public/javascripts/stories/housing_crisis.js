@@ -33,6 +33,7 @@
         chart2Keys = chart2D.columns.slice(2);
       chart2D.forEach(d => {
         d.value = +d.value;
+        d.date = +d.date;
       });
 
       const chart3D = datafiles[3],
@@ -254,10 +255,10 @@
         tY: "Number of Properties"
       };
 
+      //console.log(Chart2C.d);
+
       const Chart2 = new GroupStackBar(Chart2C);
       Chart2.addTooltip("Property Types - Year", "thousands", "label");
-
-
       const chart3DN = nestData(chart3D, "label", chart3R, "value"),
         chart3Content = {
           e: "#chart3",
@@ -372,6 +373,107 @@
         })
         .addLayer(new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"));
 
+// -- new legend
+
+function style(feature) {
+    return {
+        weight: 1,
+        opacity: 1,
+        color: 'white',
+        fillOpacity: 0.7,
+        fillColor: 'grey'
+    };
+};
+
+function highlightFeature(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 5,
+        color: '#000',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+};
+
+function resetHighlight(e) {
+    geojson.resetStyle(e.target);
+};
+
+function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+};
+
+var onEachFeature_LMA = function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: zoomToFeature
+    });
+
+}
+//Get color for Index
+    function getColorInd(d) {
+        return d >= 51 ? '#b30000' 
+        : d >= 31 && d <= 50 ? '#e34a33' 
+        : d >= 16 && d <= 30 ? '#fc8d59'
+        : d >= 6 && d <= 15  ? '#FADA9A'
+        : '#fef0d9';
+    }
+
+
+    /*function getColorInd(d) {
+      return d > 1000 ? '#5e4fa2' :
+             d > 500  ? '#3288bd' :
+             d > 200  ? '#66c2a5' :
+             d > 100  ? '#abdda4' :
+             d > 50   ? '#e6f598' :
+             d > 20   ? '#ffffbf' :
+             d > 10   ? '#fee08b' :
+                        '#fdae61';
+    }*/
+
+   
+
+    //Style for Index
+    function styleInd(feature) {
+        return {
+            weight: 1,
+            opacity: 1,
+            color: 'blue',
+            fillOpacity: 0.7,
+            fillColor: getColorInd(feature.properties.EcPerfInd)
+        };
+    }
+
+
+var legend = L.control({
+    position: 'topright'
+});
+legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'legend'),
+        labels = ['<strong>Index</strong>'],
+        lower = [0,6,16,31,51],
+        upper = [5,15,30,50,100];
+        div.id = "legend";
+        div.width= "20px";
+
+    for (var i = 0; i < lower.length; i++) {
+        div.innerHTML += labels.push(
+            '<i style="background:' + getColorInd(lower[i]) + '"></i> ' + lower[i] + '&ndash;' + upper[i] + '%');
+    }
+    div.innerHTML = labels.join('<br>');
+    return div;
+};
+
+legend.addTo(map);
+
+
+//---
+
+
+
       function onEachFeature(f, layer) {
 
         let t = +f.properties.WORKFORCE,
@@ -397,9 +499,16 @@
       }
 
       L.geoJSON(datafiles[0], {
-        style: colour,
-        onEachFeature: onEachFeature
+        style:colour,
+    onEachFeature: onEachFeature
+    // or onEachFeature: onEachFeature_LMA
       }).addTo(map);
+
+
+/*var geojson = L.geoJson(Sample, {
+    style: styleInd,
+    onEachFeature: onEachFeature_LMA
+}).addTo(map);*/
 
 
       function colour(f) {

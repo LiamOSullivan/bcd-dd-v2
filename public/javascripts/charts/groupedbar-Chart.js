@@ -1,6 +1,7 @@
 class GroupedBarChart extends Chart{
 
     constructor (obj){
+        console.log(obj);
         super(obj);
 
         this.drawChart();
