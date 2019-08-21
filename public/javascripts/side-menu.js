@@ -27,6 +27,8 @@ d3.json("/data/search-data.json").then((data) => {
   searchData = data;
 });
 
+//A simple simulation of a search function which matches aaginst the titles in the search-data json data.
+//This probably isn't very scalable.
 function searchSite() {
   console.log("Searching");
   let s = document.getElementById("site-search");
