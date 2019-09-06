@@ -47,6 +47,7 @@ class StackedAreaChart extends Chart {
       // keys,
       // groupData,
       stack = d3.stack();
+      console.log(data);
 
     // keys = c.ks;
 

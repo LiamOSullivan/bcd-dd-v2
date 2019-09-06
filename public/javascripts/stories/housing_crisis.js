@@ -122,7 +122,17 @@
           "#da1e4d", //BCD-red
           "#998ce3", //purple
           "#6aedc7", //green
-        ];
+        ],
+
+
+       cSc1=['#6f0000','#930000','#b70000','#db0000','#ff2424','#ff4848'],
+       cSc2=['#ffc9c9','#ffbaba','#ffabab','#ff9c9c','#ff8d8d','#ff7e7e'],
+       cSc3=['#bbffff','#b2ffff','#a8ffff','#9cffff','#8effff','#7effff'],
+       cSc4=['#e5e5a2','#e8e89c','#ebeb95','#efef8d','#f4f483','#f9f978'],
+       cSc5=['#2f4970','#365481','#3e6194','#476faa','#527fc3','#5e92df'],
+       cSc6=['#46bb98','#41b18f','#3da686','#399b7d','#359074','#31856b'],
+       cSc7=['#d5e6ef','#cae0eb','#bfdae7','#b4d4e3','#a9cedf','#9ec8db'],
+
 
       cA5 = [
         "#8dd3c7",
@@ -250,6 +260,13 @@
         d: chart2D,
         yV: "value",
         cS: cA4,
+        cS1: cSc1,
+        cS2: cSc2,
+        cS3: cSc3,
+        cS4: cSc4,
+        cS5: cSc5,
+        cS6: cSc6,
+        cS7: cSc7,
         ySF: "m",
         tX: "Regions",
         tY: "Number of Properties"
@@ -271,6 +288,7 @@
           tY: "No. of Housing Completions"
 
         },
+          //console.log(chart3DN);
         Chart3 = new StackedAreaChart(chart3Content);
       Chart3.tickNumber = 23;
       Chart3.addTooltip("Housing Completions - Year:", "millions", "label");

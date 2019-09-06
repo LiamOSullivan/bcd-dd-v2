@@ -3,6 +3,7 @@ class GroupStackBar {
     constructor(obj){
       //  console.clear();
         //console.log('hereffff');
+         
         this.d = obj.d; // the data
         this.e = obj.e; // selector element
         this.k = obj.k; // key
@@ -12,7 +13,13 @@ class GroupStackBar {
         this.yV = obj.yV; // y value
 
         this.cS = obj.cS; // colour scheme
-
+        //this.co1=obj.cS1,
+        //this.wkc=obj.cS2,
+        //this.Fic=obj.cS3,
+        //this.Mec=obj.cS4,
+        //this.kic=obj.cS5,
+        //this.Dlc=obj.cS6,
+        //this.SDc=obj.cS7,
         this.tX = obj.tX;
         this.tY = obj.tY;
         this.ySF = obj.ySF || "thousands"; // format for y axis
@@ -25,9 +32,21 @@ class GroupStackBar {
         this.drawChart();
 
 
+
+       /*console.log(this.d.data[0].region);
+       console.log(this.d.data[1].region);
+       console.log(this.d.data[2].region);
+       console.log(this.d.data[3].region);
+       console.log(this.d.data[4].region);
+       console.log(this.d.data[5].region);
+       console.log(this.d.data[6].region);*/
+
+ 
+
     }
 
 
+     
 
     drawChart(){
         let c = this;
@@ -142,8 +161,8 @@ class GroupStackBar {
                 .attr("class", "titleX")
                 .attr("x", c.w/2)
                 .attr("y", c.h + 60)
-                .attr("text-anchor", "middle");
-                //.text(c.tX);
+                .attr("text-anchor", "middle")
+                .text(c.tX);
 
             // Y title
             yLabel = g.append("text")
@@ -300,6 +319,8 @@ class GroupStackBar {
             c.keys = keys.reverse();
             c.gData = groupData;
 
+
+
             // console.log("grouped the shit", c.stackD);
 
     }
@@ -387,32 +408,23 @@ class GroupStackBar {
             z = c.colour,
             x0 = c.x0,
             x1 = c.x1,
+
+            cS1=['#6f0000','#930000','#b70000','#db0000','#ff2424','#ff4848'],
+            cS2=['#ffc9c9','#ffbaba','#ffabab','#ff9c9c','#ff8d8d','#ff7e7e'],
+            cS3=['#bbffff','#b2ffff','#a8ffff','#9cffff','#8effff','#7effff'],
+            cS4=['#e5e5a2','#e8e89c','#ebeb95','#efef8d','#f4f483','#f9f978'],
+            cS5=['#2f4970','#365481','#3e6194','#476faa','#527fc3','#5e92df'],
+            cS6=['#46bb98','#41b18f','#3da686','#399b7d','#359074','#31856b'],
+            cS7=['#d5e6ef','#cae0eb','#bfdae7','#b4d4e3','#a9cedf','#9ec8db'],
             y = c.y;
 
-
-            let co1=['#6f0000','#930000','#b70000','#db0000','#ff2424','#ff4848'];
-            let wkc=['#ffc9c9','#ffbaba','#ffabab','#ff9c9c','#ff8d8d','#ff7e7e'];
-            let Fic=['#bbffff','#b2ffff','#a8ffff','#9cffff','#8effff','#7effff'];
-            let Mec=['#e5e5a2','#e8e89c','#ebeb95','#efef8d','#f4f483','#f9f978'];
-            let kic=['#2f4970','#365481','#3e6194','#476faa','#527fc3','#5e92df'];
-            let Dlc=['#46bb98','#41b18f','#3da686','#399b7d','#359074','#31856b'];
-            let SDc=['#d5e6ef','#cae0eb','#bfdae7','#b4d4e3','#a9cedf','#9ec8db'];
-
-            var z1 = d3.scaleOrdinal().range(co1);
-            var z2 = d3.scaleOrdinal()
-                    .range(wkc);
-            var z3=d3.scaleOrdinal()
-                    .range(Fic);
-            var z4=d3.scaleOrdinal()
-                   .range(Mec);
-            var z5=d3.scaleOrdinal()
-                          .range(kic);
-
-            var z6=d3.scaleOrdinal()
-                        .range(Dlc);
-
-            var z7=d3.scaleOrdinal()
-                        .range(SDc);
+            var z1 =  d3.scaleOrdinal().range(cS1);
+            var z2 =  d3.scaleOrdinal().range(cS2);
+            var z3 =  d3.scaleOrdinal().range(cS3);
+            var z4 =  d3.scaleOrdinal().range(cS4);
+            var z5 =  d3.scaleOrdinal().range(cS5);
+            var z6 =  d3.scaleOrdinal().range(cS6);
+            var z7 =  d3.scaleOrdinal().range(cS7);
 
             z1.domain(c.stackD.map(function(d) { return d.type}))
             z2.domain(c.stackD.map(function(d) { return d.type}))
@@ -471,12 +483,20 @@ class GroupStackBar {
                            //console.log("series-rect click d", i, d);
                         })
 
+                       
+
+
+
+
+
+                           
                           c.series.selectAll("rect")
                           .filter(function(d,i)
                           { return i < 7  })
                           .attr("fill",function(i) {
                            return z1(i)});
 
+                      
                           c.series.selectAll("rect")
                           .filter(function(d,i) {return i > 3  && i < 8 })
                           .attr("fill", function(i) {
@@ -492,20 +512,28 @@ class GroupStackBar {
                             .attr("fill", function(i) {
                              return z4(i)});
 
-                             c.series.selectAll("rect")
-                             .filter(function(d,i) {return i > 15  && i < 20  })
-                             .attr("fill", function(i) {
-                              return z5(i)});
+                            c.series.selectAll("rect")
+                            .filter(function(d,i) {return i > 15  && i < 20  })
+                            .attr("fill", function(i) {
+                            return z5(i)});
 
-                              c.series.selectAll("rect")
-                              .filter(function(d,i) {return i > 19  && i < 24  })
-                              .attr("fill", function(i) {
-                               return z6(i)});
+                            c.series.selectAll("rect")
+                            .filter(function(d,i) {return i > 19  && i < 24  })
+                            .attr("fill", function(i) {
+                            return z6(i)});
 
                                c.series.selectAll("rect")
                                .filter(function(d,i) {return i > 23  && i < 28   })
                                .attr("fill", function(i) {
                                 return z7(i)});
+                               
+
+
+
+
+
+
+
 
     }
 
@@ -552,6 +580,7 @@ class GroupStackBar {
     }
 
     addTooltip(title, format, date){
+          
 
         let dv = this;
             dv.datelabel = date;
@@ -573,10 +602,14 @@ class GroupStackBar {
             .on("mousemove", d => dv.mousemove(d));
     }
 
+
+
     mousemove(d){
-        let c = this,
-            x = c.x0(d.data.date) + c.x1(d.data.region),
-            y = 100,
+        
+                         
+           let c = this,
+           x = c.x0(d.data.date) + c.x1(d.data.region),
+           y = 100,
             total = 0,
             tooltipX = c.getTooltipPosition(x),
             bisect = d3.bisector(function(d) { return d.date; }).left,
@@ -586,6 +619,7 @@ class GroupStackBar {
             iNum = bisect(cArray, d.data.date),
             prev = cArray[iNum-1] ? cArray[iNum-1] : null;
 
+           
             // c.keys.forEach( (reg,idx) => {
             //     console.log( prev ? ((cArray[iNum-1][reg] - cArray[iNum][reg]) / cArray[iNum-1][reg]) : "N/A")
             // });
@@ -593,10 +627,19 @@ class GroupStackBar {
             c.newToolTip.style('left', tooltipX + "px").style("top", "20px");
 
             c.keys.forEach( (reg,idx) => {
-                total += d.data[reg];
+            total += d.data[reg];
+                
             });
 
+               
+
+
             c.keys.forEach( (reg,idx) => {
+
+
+
+                         // console.log(c.keys);
+
                     // total += d.data[reg];// for the last text total;
 
              
@@ -631,20 +674,10 @@ class GroupStackBar {
                  c.colour=c.colour;
                  div.select(".bcd-rect").style("background-color", c.colour(reg));
                }*/
-
-                var colors = new Array ( );
-                colors['Dublin City'] = new Array ('#d5e6ef','#cae0eb','#bfdae7','#b4d4e3','#a9cedf','#9ec8db');
-                colors['Fingal'] = new Array ('#2f4970','#365481','#3e6194','#476faa','#527fc3','#5e92df');
-                colors['Kildare'] = new Array ('#e5e5a2','#e8e89c','#ebeb95','#efef8d','#f4f483','#f9f978');
-                colors['Meath'] = new Array ('#bbffff','#b2ffff','#a8ffff','#9cffff','#8effff','#7effff');
-                colors['South Dublin'] = new Array ('#ffc9c9','#ffbaba','#ffabab','#ff9c9c','#ff8d8d','#ff7e7e');
-                colors['Wicklow'] = new Array ('#6f0000','#930000','#b70000','#db0000','#ff2424','#ff4848');
-                colors['Dún Laoghaire-Rathdown'] = new Array ('#46bb98','#41b18f','#3da686','#399b7d','#359074','#31856b');
-
-                
+                        
                 div.style("opacity", 1);
                 //div.select(".bcd-rect").style("background-color",colors[d.data.region][idx]);
-                div.select(".bcd-rect").style("background-color",colors[d.data.region][idx]);
+                div.select(".bcd-rect").style("background-color", getcolor(d.data.region)[idx]);// colors[d.data.region][idx]);
                 p.select(".bcd-text-title").text(reg);
                 p.select(".bcd-text-value").text(v);
                 // p.select(".bcd-text-rate").text((rate));
@@ -761,4 +794,19 @@ function textWrap(text, width, xpos = 0, limit=3) {
     });
     //  console.clear();
 }
-  
+
+function getcolor(La) {
+let colors =[];
+ colors['Dublin City'] = ['#d5e6ef','#cae0eb','#bfdae7','#b4d4e3','#a9cedf','#9ec8db'];
+ colors['Fingal'] = ['#2f4970','#365481','#3e6194','#476faa','#527fc3','#5e92df'];
+ colors['Kildare'] = ['#e5e5a2','#e8e89c','#ebeb95','#efef8d','#f4f483','#f9f978'];
+ colors['Meath'] = ['#bbffff','#b2ffff','#a8ffff','#9cffff','#8effff','#7effff'];
+ colors['South Dublin'] = ['#ffc9c9','#ffbaba','#ffabab','#ff9c9c','#ff8d8d','#ff7e7e'];
+ colors['Wicklow'] = ['#6f0000','#930000','#b70000','#db0000','#ff2424','#ff4848'];
+ colors['Dún Laoghaire-Rathdown'] = ['#46bb98','#41b18f','#3da686','#399b7d','#359074','#31856b'];
+ return colors[La];
+}
+
+
+
+    
