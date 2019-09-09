@@ -1,32 +1,32 @@
 let employmentLine, unemploymentLine, employmentStack, unemploymentStack;
 let annual = "../data/Economy/annualemploymentchanges.csv",
-  QNQ22 = "../data/Economy/QNQ22_2.csv",
+  QLF08 = "../data/Economy/QLF08.csv",
   pageSize = 12;
 
 
 
-/*** This QNQ22 employment and unemployment Charts ***/
+/*** This QLF08 employment and unemployment Charts ***/
 Promise.all([
     d3.csv(annual),
-    d3.csv(QNQ22)
+    d3.csv(QLF08)
 
   ]).then(datafiles => {
-    const QNQ22 = datafiles[1],
+    const QLF08 = datafiles[1],
       annual = datafiles[0],
-      keys = QNQ22.columns.slice(3), // 0-2 is date, quarter, region
+      keys = QLF08.columns.slice(3), // 0-2 is date, quarter, region
       groupBy = "region",
       keysA = annual.columns.slice(2),
-      test = d3Nest(QNQ22, "date"); // annual rate keys
+      test = d3Nest(QLF08, "date"); // annual rate keys
 
     // coerce values and parse dates
-    coerceNum(QNQ22, keys);
+    coerceNum(QLF08, keys);
     coerceNum(annual, keysA);
-    parseQuarter(QNQ22, "quarter");
+    parseQuarter(QLF08, "quarter");
     parseYearDates(annual, "date");
 
     const emp = keys[0],
-      unemp = QNQ22.columns[4],
-      fData = filterbyDate(QNQ22, "date", "Jan 01  2001"),
+      unemp = QLF08.columns[4],
+      fData = filterbyDate(QLF08, "date", "Jan 01  2001"),
       aNest = d3Nest(annual, groupBy),
       unempData = stackNest(fData, "label", "region", unemp),
       empData = stackNest(fData, "label", "region", emp),
