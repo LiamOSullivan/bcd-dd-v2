@@ -1,3 +1,4 @@
+document.getElementById('chart-employment').html("");
     const pFormat = d3.format(".2%"),
       pYear = d3.timeParse("%Y"),
       src = "../data/Stories/Housing/",
@@ -16,6 +17,7 @@
       d3.csv(src + "Property_tax.csv"),
       d3.csv(src + "House_Com.csv"),
     ]).then(datafiles => {
+// 
 
       const chart1D = datafiles[0];
       chart1D.forEach(d => {
@@ -290,6 +292,8 @@
         },
           //console.log(chart3DN);
         Chart3 = new StackedAreaChart(chart3Content);
+        //var fg = d3.select("#chart-employment.chart-holder"); 
+        //console.log(fg);
       Chart3.tickNumber = 23;
       Chart3.addTooltip("Housing Completions - Year:", "millions", "label");
 

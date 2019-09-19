@@ -2,7 +2,7 @@ let populationChart, outsideStateChart, houseHoldsChart, houseHoldCompositionCha
 let population, outsideStateContent, outsideStateTT, houseHoldsContent, houseHoldsTT, houseHoldCompositionContent, houseHoldCompositionTT;
 
 d3.csv("../data/Demographics/CNA13.csv").then(data => {
-
+d3.select('#population').selectAll(".chart-holder").style("background-image", "none");
   const columnNames = data.columns.slice(2),
     xValue = data.columns[0];
   groupBy = data.columns[0];

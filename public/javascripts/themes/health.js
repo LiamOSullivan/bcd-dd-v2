@@ -4,6 +4,7 @@ Promise.all([
     d3.csv("../data/Health/healthlevelscount2011.csv")
 ]).then(datafiles => {
     // t is for trolleys
+    d3.select('#chart-healthlevels').selectAll(".chart-holder").style("background-image", "none");
     const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p),
           tData = datafiles[0],
           tKeys = tData.columns.slice(3),

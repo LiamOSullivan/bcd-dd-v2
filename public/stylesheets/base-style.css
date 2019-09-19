@@ -243,6 +243,12 @@ a:hover {
 }
 
 .chart-holder{
+
+  background-image: linear-gradient(#f8f8f8,gray);
+
+ /*background-image: url("https://ik.imagekit.io/demo/img/image4.jpeg?tr=w-1,h-1:w-300,h-200");*/
+ /*background-color: #f8f8f8;*/
+
   margin-right: -1rem;
   border-radius: .325rem;
 }
