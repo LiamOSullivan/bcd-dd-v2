@@ -21,7 +21,7 @@
     "leaflet": "^1.5.1",
     "leaflet-spin": "^1.1.0",
     "lodash": ">=4.17.21",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
     "mysql": "^2.16.0",
